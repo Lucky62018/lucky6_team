@@ -3,6 +3,7 @@
 #include "float.h"
 #include "ObjectSet.h"
 #include "Sphere.h"
+#include "Camera.h"
 
 using namespace std;
 
@@ -18,27 +19,30 @@ Vector3D color(const Ray& r, Object *s) {
 }
 
 int main() {
-  int nx = 400;
-  int ny = 200;
+  int nx = 200;
+  int ny = 100;
+  int ns = 100;
   ofstream outfile("test.ppm");
   outfile << "P3\n" << nx << " " << ny << "\n255\n";
 
-  Vector3D leftLowerCorner(-2, -1, -0.2);
-  Vector3D horizontal(4, 0, 0);
-  Vector3D vertical(0, 2, 0);
-  Vector3D origin(0, 0, 0);
-
   Object* arr[2];
-  arr[0] = new Sphere(Vector3D(-1,0,-1), 0.5);
-  arr[1] = new Sphere(Vector3D(1,0,-1), 0.6);
+  arr[0] = new Sphere(Vector3D(0,0,-1), 0.5);
+  arr[1] = new Sphere(Vector3D(0,-100.5,-1), 100);
   Object *set = new ObjectSet(arr, 2);
+
+  Camera cam;
 
   for (int j = ny - 1; j >= 0; j--) {
     for (int i = 0; i < nx; i++) {
-      float u = float(i) / float(nx);
-      float v = float(j) / float(ny);
-      Ray r(origin, leftLowerCorner + u * horizontal + v * vertical);
-      Vector3D col = color(r, set);
+      Vector3D col = Vector3D(0, 0, 0);
+      for (int s=0; s < ns; s++) {
+        float u = float(i + drand48()) / float(nx);
+        float v = float(j + drand48()) / float(ny);
+        Ray r = cam.getRay(u, v);
+        Vector3D p = r.TerminalWithArgument(2.0);
+        col += color(r, set);
+      }
+      col /= float(ns);
       int ir = int(255.99*col.x);
       int ig = int(255.99*col.y);
       int ib = int(255.99*col.z);
