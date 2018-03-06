@@ -3,10 +3,13 @@
 
 #include "Ray.h"
 
+class Material;
+
 struct IntersectInfo {
   float t;
   Vector3D pointOfIntersection;
   Vector3D normal;
+  Material *materialPointer;
 };
 
 class Object {
