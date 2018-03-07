@@ -7,11 +7,13 @@ class Sphere : public Object{
   public:
     Vector3D center;
     float radius;
+    Material* materialPointer;
     
     Sphere() {}
-    Sphere(Vector3D c, float r) {
+    Sphere(Vector3D c, float r, Material* m) {
       center = c;
       radius = r;
+      materialPointer = m;
     }
 
     virtual bool Intersect(const Ray& r, float minT, float maxT, IntersectInfo& info) const;
@@ -29,6 +31,7 @@ bool Sphere::Intersect(const Ray& r, float minT, float maxT, IntersectInfo& info
       info.t = temp;
       info.pointOfIntersection = r.TerminalWithArgument(temp);
       info.normal = (info.pointOfIntersection - center) / radius;
+      info.materialPointer = materialPointer;
       return true;
     }
     temp = (-b + sqrt(d))/(2 * a);
@@ -36,6 +39,7 @@ bool Sphere::Intersect(const Ray& r, float minT, float maxT, IntersectInfo& info
       info.t = temp;
       info.pointOfIntersection = r.TerminalWithArgument(temp);
       info.normal = (info.pointOfIntersection - center) / radius;
+      info.materialPointer = materialPointer;
       return true;
     }
   }

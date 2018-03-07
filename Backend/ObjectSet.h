@@ -6,7 +6,7 @@
 class ObjectSet : public Object{
   public:
     int size;
-    Object** set;
+    Object **set;
 
     ObjectSet() {}
     ObjectSet(Object **s, int n) { set = s; size = n; }
