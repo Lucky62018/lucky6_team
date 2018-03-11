@@ -3,6 +3,7 @@
 
 #include "Ray.h"
 #include "Object.h"
+#include "Texture.h"
 
 struct IntersectInfo;
 
@@ -40,14 +41,14 @@ class Material {
 
 class Diffuse : public Material {
   public:
-    Vector3D ratio;
+    Texture *ratio;
 
-    Diffuse(const Vector3D& r) : ratio(r) {}
+    Diffuse(Texture *r) : ratio(r) {}
 
     virtual bool Scatter(const Ray& comingRay, const IntersectInfo& info, Vector3D& attenuation, Ray& scattered) const {
       Vector3D target = info.pointOfIntersection + info.normal + randomPointInSphere();
       scattered = Ray(info.pointOfIntersection, target - info.pointOfIntersection);
-      attenuation = ratio;
+      attenuation = ratio->GetColor(0, 0, info.pointOfIntersection);
       return true;
     }
 };

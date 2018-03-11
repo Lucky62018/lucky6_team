@@ -5,6 +5,7 @@
 #include "Sphere.h"
 #include "Camera.h"
 #include "Material.h"
+#include "Texture.h"
 
 using namespace std;
 
@@ -28,28 +29,30 @@ Vector3D color(const Ray& r, Object *s, int depth) {
 ObjectSet *randomSet() {
     int n = 500;
     Object **list = new Object*[n+1];
-    list[0] =  new Sphere(Vector3D(0,-1000,0), 1000, new Diffuse(Vector3D(0.5, 0.5, 0.5)));
+    Texture *checker = new CheckerTexture(new PureColorTexture(Vector3D(0.2, 0.3, 0.1)), new PureColorTexture(Vector3D(0.9, 0.9, 0.9)));
+    list[0] =  new Sphere(Vector3D(0,-1000,0), 1000, new Diffuse(checker));
     int i = 1;
-    for (int a = -11; a < 11; a++) {
-      for (int b = -11; b < 11; b++) {
-        float choose_mat = drand48();
-        Vector3D center(a+0.9*drand48(),0.2,b+0.9*drand48()); 
-        if ((center-Vector3D(4,0.2,0)).Length() > 0.9) { 
-          if (choose_mat < 0.8) {  // diffuse
-            list[i++] = new Sphere(center, 0.2, new Diffuse(Vector3D(drand48()*drand48(), drand48()*drand48(), drand48()*drand48())));
-          }
-          else if (choose_mat < 0.95) { // metal
-            list[i++] = new Sphere(center, 0.2, new Metal(Vector3D(0.5*(1 + drand48()), 0.5*(1 + drand48()), 0.5*(1 + drand48()))));
-          }
-          else {  // glass
-            list[i++] = new Sphere(center, 0.2, new Glass(1.5));
-          }
-        }
-      }
-    }
+    // for (int a = -11; a < 11; a++) {
+    //   for (int b = -11; b < 11; b++) {
+    //     float choose_mat = drand48();
+    //     Vector3D center(a+0.9*drand48(),0.2,b+0.9*drand48()); 
+    //     if ((center-Vector3D(4,0.2,0)).Length() > 0.9) { 
+    //       if (choose_mat < 0.8) {  // diffuse
+    //         list[i++] = new Sphere(center, 0.2, new Diffuse(Vector3D(drand48()*drand48(), drand48()*drand48(), drand48()*drand48())));
+    //       }
+    //       else if (choose_mat < 0.95) { // metal
+    //         list[i++] = new Sphere(center, 0.2, new Metal(Vector3D(0.5*(1 + drand48()), 0.5*(1 + drand48()), 0.5*(1 + drand48()))));
+    //       }
+    //       else {  // glass
+    //         list[i++] = new Sphere(center, 0.2, new Glass(1.5));
+    //       }
+    //     }
+    //   }
+    // }
 
     list[i++] = new Sphere(Vector3D(0, 1, 0), 1.0, new Glass(1.5));
-    list[i++] = new Sphere(Vector3D(-4, 1, 0), 1.0, new Diffuse(Vector3D(0.4, 0.2, 0.1)));
+    Texture *pure = new PureColorTexture(Vector3D(0.4, 0.2, 0.1));
+    list[i++] = new Sphere(Vector3D(-4, 1, 0), 1.0, new Diffuse(pure));
     list[i++] = new Sphere(Vector3D(4, 1, 0), 1.0, new Metal(Vector3D(0.7, 0.6, 0.5)));
 
     return new ObjectSet(list,i);
@@ -82,7 +85,7 @@ int main() {
         float u = float(i + drand48()) / float(nx);
         float v = float(j + drand48()) / float(ny);
         Ray r = cam.getRay(u, v);
-        Vector3D p = r.TerminalWithArgument(2.0);
+        // Vector3D p = r.TerminalWithArgument(2.0);
         col += color(r, set, 0);
       }
       col /= float(ns);
