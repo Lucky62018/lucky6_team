@@ -49,8 +49,9 @@ ObjectSet *randomSet() {
     //     }
     //   }
     // }
-
-    list[i++] = new Sphere(Vector3D(0, 1, 0), 1.0, new Glass(1.5));
+    Texture *marble = new MarbleTexture(100);
+    list[i++] = new Sphere(Vector3D(0, 1, 0), 1.0, new Diffuse(marble));
+    // list[i++] = new Sphere(Vector3D(0, 1, 0), 1.0, new Glass(1.5));
     Texture *pure = new PureColorTexture(Vector3D(0.4, 0.2, 0.1));
     list[i++] = new Sphere(Vector3D(-4, 1, 0), 1.0, new Diffuse(pure));
     list[i++] = new Sphere(Vector3D(4, 1, 0), 1.0, new Metal(Vector3D(0.7, 0.6, 0.5)));

@@ -41,14 +41,14 @@ class Material {
 
 class Diffuse : public Material {
   public:
-    Texture *ratio;
+    Texture *texture;
 
-    Diffuse(Texture *r) : ratio(r) {}
+    Diffuse(Texture *t) : texture(t) {}
 
     virtual bool Scatter(const Ray& comingRay, const IntersectInfo& info, Vector3D& attenuation, Ray& scattered) const {
       Vector3D target = info.pointOfIntersection + info.normal + randomPointInSphere();
       scattered = Ray(info.pointOfIntersection, target - info.pointOfIntersection);
-      attenuation = ratio->GetColor(0, 0, info.pointOfIntersection);
+      attenuation = texture->GetColor(0, 0, info.pointOfIntersection);
       return true;
     }
 };
