@@ -3,6 +3,7 @@
 
 #include "Ray.h"
 #include "Object.h"
+#include "Texture.h"
 
 struct IntersectInfo;
 
@@ -36,18 +37,21 @@ float polynomialApproximate(float cosine, float refractIndex) {
 class Material {
   public:
     virtual bool Scatter(const Ray& comingRay, const IntersectInfo& info, Vector3D& attenuation, Ray& scattered) const = 0;
+    virtual Vector3D Emitted(const Vector3D& p) const{
+      return Vector3D(0, 0, 0);
+    }
 };
 
 class Diffuse : public Material {
   public:
-    Vector3D ratio;
+    Texture *texture;
 
-    Diffuse(const Vector3D& r) : ratio(r) {}
+    Diffuse(Texture *t) : texture(t) {}
 
     virtual bool Scatter(const Ray& comingRay, const IntersectInfo& info, Vector3D& attenuation, Ray& scattered) const {
       Vector3D target = info.pointOfIntersection + info.normal + randomPointInSphere();
       scattered = Ray(info.pointOfIntersection, target - info.pointOfIntersection);
-      attenuation = ratio;
+      attenuation = texture->GetColor(info.pointOfIntersection);
       return true;
     }
 };
@@ -97,6 +101,19 @@ class Glass : public Material {
       if(drand48() < reflectProb) scattered = Ray(info.pointOfIntersection, reflected);
       else scattered = Ray(info.pointOfIntersection, refracted);
       return true;
+    }
+};
+
+class Light : public Material {
+  public:
+    Texture *texture;
+
+    Light(Texture *t) : texture(t) {}
+    virtual bool Scatter(const Ray& comingRay, const IntersectInfo& info, Vector3D& attenuation, Ray& scattered) const {
+      return false;
+    }
+    virtual Vector3D Emitted(const Vector3D& p) const{
+      return texture->GetColor(p);
     }
 };
 
