@@ -19,14 +19,14 @@ class Vector3D {
     }
 
     //overload some operators for convenience of calculating vectors
-    Vector3D operator-() const { return Vector3D(-x, -y, -z); }
+    inline Vector3D operator-() const { return Vector3D(-x, -y, -z); }
     inline Vector3D& operator+=(const Vector3D &v);
     inline Vector3D& operator-=(const Vector3D &v);
     inline Vector3D& operator*=(const float a);
     inline Vector3D& operator/=(const float a);
 
     //useful vector functions
-    float Length() const { return sqrt(x*x + y*y + z*z); }
+    inline float Length() const { return sqrt(x*x + y*y + z*z); }
     inline void Unitize(); //unitize current Vector3D obeject
 };
 

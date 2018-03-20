@@ -15,8 +15,6 @@ class PlaneXY : public Object {
       float x = r.origin.x + t * r.direction.x;
       float y = r.origin.y + t * r.direction.y;
       if (x < x0 || x > x1 || y < y0 || y > y1) return false;
-      info.u = (x - x0) / (x1 - x0);
-      info.v = (y - y0) / (y1 - y0);
       info.t = t;
       info.materialPointer = mp;
       info.pointOfIntersection = r.TerminalWithArgument(t);
@@ -37,12 +35,10 @@ class PlaneXZ : public Object {
       float x = r.origin.x + t * r.direction.x;
       float z = r.origin.z + t * r.direction.z;
       if (x < x0 || x > x1 || z < z0 || z > z1) return false;
-      info.u = (x - x0) / (x1 - x0);
-      info.v = (z - z0) / (z1 - z0);
       info.t = t;
       info.materialPointer = mp;
       info.pointOfIntersection = r.TerminalWithArgument(t);
-      info.normal = Vector3D(0, 0, 1);
+      info.normal = Vector3D(0, 1, 0);
       return true;
     }
 };
@@ -59,12 +55,10 @@ class PlaneYZ : public Object {
       float y = r.origin.y + t * r.direction.y;
       float z = r.origin.z + t * r.direction.z;
       if (y < y0 || y > y1 || z < z0 || z > z1) return false;
-      info.u = (y - y0) / (y1 - y0);
-      info.v = (z - z0) / (z1 - z0);
       info.t = t;
       info.materialPointer = mp;
       info.pointOfIntersection = r.TerminalWithArgument(t);
-      info.normal = Vector3D(0, 0, 1);
+      info.normal = Vector3D(1, 0, 0);
       return true;
     }
 };
@@ -94,11 +88,11 @@ class Rectangle : public Object {
       pmax = p1;
       Object **list = new Object*[6];
       list[0] = new PlaneXY(p0.x, p1.x, p0.y, p1.y, p1.z, mp);
-      list[1] = new NormalFlip(new PlaneXY(p0.x, p1.x, p0.y, p1.y, p1.z, mp));
+      list[1] = new NormalFlip(new PlaneXY(p0.x, p1.x, p0.y, p1.y, p0.z, mp));
       list[2] = new PlaneXZ(p0.x, p1.x, p0.z, p1.z, p1.y, mp);
-      list[3] = new NormalFlip(new PlaneXZ(p0.x, p1.x, p0.z, p1.z, p1.y, mp));
+      list[3] = new NormalFlip(new PlaneXZ(p0.x, p1.x, p0.z, p1.z, p0.y, mp));
       list[4] = new PlaneYZ(p0.y, p1.y, p0.z, p1.z, p1.x, mp);
-      list[5] = new NormalFlip(new PlaneYZ(p0.y, p1.y, p0.z, p1.z, p1.x, mp));
+      list[5] = new NormalFlip(new PlaneYZ(p0.y, p1.y, p0.z, p1.z, p0.x, mp));
       listPtr = new ObjectSet(list, 6);
     }
     virtual bool Intersect(const Ray& r, float minT, float maxT, IntersectInfo& info) const {
