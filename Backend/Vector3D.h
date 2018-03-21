@@ -17,7 +17,7 @@ class Vector3D {
       this->y = y;
       this->z = z;
     }
-
+    
     //overload some operators for convenience of calculating vectors
     inline Vector3D operator-() const { return Vector3D(-x, -y, -z); }
     inline Vector3D& operator+=(const Vector3D &v);
