@@ -47,11 +47,7 @@ class MarbleTexture : public Texture {
       noise.SetFractalOctaves(5);
     }
     virtual Vector3D GetColor(const Vector3D& p) const {
-      // return 0.5 * (1 + sin(scale * p.z + 10 * Turb(p))) * Vector3D(1, 1, 1);
-      // std::cout << p.x << p.y << p.z << std::endl;
       Vector3D temp = scale * p;
-      // std::cout << noise.GetNoise(temp.x, temp.y, temp.z) << std::endl;
-      // return fabs(noise.GetNoise(temp.x, temp.y, temp.z)) * Vector3D(1,1,1);
       return Turb(temp) * Vector3D(1,1,1);
     }
 

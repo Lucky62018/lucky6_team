@@ -10,8 +10,6 @@ struct IntersectInfo {
   Vector3D pointOfIntersection;
   Vector3D normal;
   Material *materialPointer;
-  float u;
-  float v;
 };
 
 class Object {
