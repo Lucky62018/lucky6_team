@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>菜鸟教程(runoob.com)</title>
+<script src="jquery-3.2.1.min.js"></script>
+</head>
+<body>
+    <h1>我的第一个标题</h1>
+    <p>我的第一个段落。</p>
+
+
+<script>
+    var data = { 
+        "name": "test",
+        "age": 1
+    }
+    alert("script")
+    $.ajax({
+        type: 'POST',
+        url: "http://localhost:8080",
+        data: JSON.stringify(data),
+        contentType: 'application/json; charset=UTF-8',
+        dataType: 'json', 
+        success: function(data) {
+            alert("success")
+        },
+        error: function(xhr, type) {
+            alert("error")
+        }
+    });
+</script>
+</body>
+</html>
