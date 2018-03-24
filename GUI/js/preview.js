@@ -2,13 +2,15 @@ var numOfSphere = 0;
 var numOfRect = 0;
 var numOfLight = 0;
 
-function initRectangle() {
-    var r1_x=document.getElementById("p1_x").value;
-    var r1_y=document.getElementById("p1_y").value;
-    var r1_z=document.getElementById("p1_z").value;
-    var r2_x=document.getElementById("p2_x").value;
-    var r2_y=document.getElementById("p2_y").value;
-    var r2_z=document.getElementById("p2_z").value;
+var arr = new Array();
+
+function initRectangle(t) {
+    var r1_x=Number(document.getElementById("p1_x").value);
+    var r1_y=Number(document.getElementById("p1_y").value);
+    var r1_z=Number(document.getElementById("p1_z").value);
+    var r2_x=Number(document.getElementById("p2_x").value);
+    var r2_y=Number(document.getElementById("p2_y").value);
+    var r2_z=Number(document.getElementById("p2_z").value);
 
     var geometry = new THREE.BoxGeometry( Math.abs(r1_x-r2_x), Math.abs(r1_y-r2_y), Math.abs(r1_z-r2_z) );
     var material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
@@ -17,13 +19,65 @@ function initRectangle() {
     rectangle.name = numOfRect;
 
     scene.add( rectangle );
+
+    var p1 = new Object();
+    var p2 = new Object();
+    p1.x = r1_x;
+    p1.y = r1_y;
+    p1.z = r1_z;
+    p2.x = r2_x;
+    p2.y = r2_y;
+    p2.z = r2_z;
+    var m = new Object();
+    if(t=="marble") {
+        m.type = "marble";
+    }
+    if(t=="metal") {
+        m.type = "metal";
+        var col = new Object();
+        col.x = Number(document.getElementById("r_metal_x").value);
+        col.y = Number(document.getElementById("r_metal_y").value);
+        col.z = Number(document.getElementById("r_metal_z").value);
+        m.color = col;
+    }
+    if(t=="glass") {
+        m.type = "glass";
+    }
+    if(t=="pure") {
+        m.type = "pureColor";
+        var col = new Object();
+        col.x = Number(document.getElementById("r_purecolor_x").value);
+        col.y = Number(document.getElementById("r_purecolor_y").value);
+        col.z = Number(document.getElementById("r_purecolor_z").value);
+        m.color = col;
+    }
+    if(t=="checker") {
+        m.type = "checker";
+        var col1 = new Object();
+        var col2 = new Object();
+        col1.x = Number(document.getElementById("r_checker_x1").value);
+        col1.y = Number(document.getElementById("r_checker_y1").value);
+        col1.z = Number(document.getElementById("r_checker_z1").value);
+        col2.x = Number(document.getElementById("r_checker_x2").value);
+        col2.y = Number(document.getElementById("r_checker_y2").value);
+        col2.z = Number(document.getElementById("r_checker_z2").value);
+        m.color1 = col1;
+        m.color2 = col2;
+    }
+    var obj = new Object();
+    obj.type = "rectangle";
+    obj.position1 = p1;
+    obj.position2 = p2;
+    obj.material = m;
+
+    arr.push(obj);
 }
 
-function initSphere(){
-    var s_x=document.getElementById("center_x").value;
-    var s_y=document.getElementById("center_y").value;
-    var s_z=document.getElementById("center_z").value;
-    var r=document.getElementById("sphere_radius").value;
+function initSphere(t){
+    var s_x=Number(document.getElementById("center_x").value);
+    var s_y=Number(document.getElementById("center_y").value);
+    var s_z=Number(document.getElementById("center_z").value);
+    var r=Number(document.getElementById("sphere_radius").value);
 
     var geometry = new THREE.SphereGeometry( r, 32, 32 );
     var material = new THREE.MeshBasicMaterial( {color: 0xffff00} );
@@ -32,14 +86,63 @@ function initSphere(){
     sphere.name = numOfSphere;
     
     scene.add( sphere );
+
+    var center = new Object();
+    center.x = s_x;
+    center.y = s_y;
+    center.z = s_z;
+    var m = new Object();
+    if(t=="marble") {
+        m.type = "marble";
+    }
+    if(t=="metal") {
+        m.type = "metal";
+        var col = new Object();
+        col.x = Number(document.getElementById("s_metal_x").value);
+        col.y = Number(document.getElementById("s_metal_y").value);
+        col.z = Number(document.getElementById("s_metal_z").value);
+        m.color = col;
+    }
+    if(t=="glass") {
+        m.type = "glass";
+    }
+    if(t=="pure") {
+        m.type = "pureColor";
+        var col = new Object();
+        col.x = Number(document.getElementById("s_purecolor_x").value);
+        col.y = Number(document.getElementById("s_purecolor_y").value);
+        col.z = Number(document.getElementById("s_purecolor_z").value);
+        m.color = col;
+    }
+    if(t=="checker") {
+        m.type = "checker";
+        var col1 = new Object();
+        var col2 = new Object();
+        col1.x = Number(document.getElementById("s_checker_x1").value);
+        col1.y = Number(document.getElementById("s_checker_y1").value);
+        col1.z = Number(document.getElementById("s_checker_z1").value);
+        col2.x = Number(document.getElementById("s_checker_x2").value);
+        col2.y = Number(document.getElementById("s_checker_y2").value);
+        col2.z = Number(document.getElementById("s_checker_z2").value);
+        m.color1 = col1;
+        m.color2 = col2;
+    }
+    
+    var obj = new Object();
+    obj.type = "sphere";
+    obj.radius = r;
+    obj.center = center;
+    obj.material = m;
+    console.log(JSON.stringify(obj));
+    arr.push(obj);
 }
 
 
 function initLight(){
-    var s_x=document.getElementById("light_x").value;
-    var s_y=document.getElementById("light_y").value;
-    var s_z=document.getElementById("light_z").value;
-    var r=document.getElementById("light_radius").value;
+    var s_x=Number(document.getElementById("light_x").value);
+    var s_y=Number(document.getElementById("light_y").value);
+    var s_z=Number(document.getElementById("light_z").value);
+    var r=Number(document.getElementById("light_radius").value);
 
     var geometry = new THREE.SphereGeometry( r, 32, 32 );
     var material = new THREE.MeshBasicMaterial( {color: new THREE.Color(1,1,1).getHex()} );
@@ -48,6 +151,56 @@ function initLight(){
     light.name = numOfLight;
     
     scene.add( light );
+    var c = new Object();
+    c.x = s_x;
+    c.y = s_y;
+    c.z = s_z;
+    var obj = new Object();
+    obj.type = "light";
+    obj.radius = r;
+    obj.center = c;
+
+    arr.push(obj);
+}
+
+function produce() {
+    var img = new Object();
+    img.x = Number(document.getElementById("image_x").value);
+    img.y = Number(document.getElementById("image_y").value);
+    img.definition = Number(document.getElementById("definition").value)
+
+    var from = new Object();
+    from.x = Number(document.getElementById("from_x").value);
+    from.y = Number(document.getElementById("from_y").value);
+    from.z = Number(document.getElementById("from_z").value);
+    var at = new Object();
+    at.x = Number(document.getElementById("at_x").value);
+    at.y = Number(document.getElementById("at_y").value);
+    at.z = Number(document.getElementById("at_z").value);
+    var cam = new Object();
+    cam.from = from;
+    cam.at = at;
+    cam.fieldOfView = Number(document.getElementById("fieldOfView").value);
+
+    var obj = new Object();
+    obj.image = img;
+    obj.camera = cam;
+    obj.objects = arr;
+    console.log(JSON.stringify(obj));
+    console.log("produce");
+    $.ajax({
+        type: 'POST',
+        url: "http://localhost:8080",
+        data: JSON.stringify(obj),
+        contentType: 'application/json; charset=UTF-8',
+        dataType: 'json', 
+        success: function(data) {
+            alert("success, please wait for the back-end generating the image")
+        },
+        error: function(xhr, type) {
+            alert("error, request failed")
+        }
+    });
 }
 
 var renderer;

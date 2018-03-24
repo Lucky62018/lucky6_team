@@ -29,10 +29,14 @@ class RequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
       self.send_header("Access-Control-Expose-Headers", "Access-Control-Allow-Origin");
       self.send_header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
       self.end_headers()
-      print (datas)
-        # main = "./raytracer data.json"
-        # os.system(main)
+      self.wfile.write("success")
+      print (data)
       print("POST")
+      with open('post_data.json', 'w') as f:
+        f.write(data)
+      main = "./raytracer post_data.json"
+      os.system(main)
+
 
   def do_OPTIONS(self):
       self.send_response(200)
