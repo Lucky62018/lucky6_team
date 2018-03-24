@@ -102,6 +102,12 @@ Object* generateObjectSet(const json& j) {
         Vector3D col(j["objects"][i]["material"]["color"]["x"], j["objects"][i]["material"]["color"]["y"], j["objects"][i]["material"]["color"]["z"]);
         mp = new Diffuse(new PureColorTexture(Vector3D(col)));
       }
+      if(j["objects"][i]["material"]["type"] == "checker") {
+        Vector3D col1(j["objects"][i]["material"]["color1"]["x"], j["objects"][i]["material"]["color1"]["y"], j["objects"][i]["material"]["color1"]["z"]);
+        Vector3D col2(j["objects"][i]["material"]["color2"]["x"], j["objects"][i]["material"]["color2"]["y"], j["objects"][i]["material"]["color2"]["z"]);
+        Texture *checker = new CheckerTexture(new PureColorTexture(col1), new PureColorTexture(col2));
+        mp = new Diffuse(checker);
+      }
       result[i] = new Sphere(center, radius, mp);
     }
 
@@ -123,6 +129,12 @@ Object* generateObjectSet(const json& j) {
       if(j["objects"][i]["material"]["type"] == "pureColor") {
         Vector3D col(j["objects"][i]["material"]["color"]["x"], j["objects"][i]["material"]["color"]["y"], j["objects"][i]["material"]["color"]["z"]);
         mp = new Diffuse(new PureColorTexture(Vector3D(col)));
+      }
+      if(j["objects"][i]["material"]["type"] == "checker") {
+        Vector3D col1(j["objects"][i]["material"]["color1"]["x"], j["objects"][i]["material"]["color1"]["y"], j["objects"][i]["material"]["color1"]["z"]);
+        Vector3D col2(j["objects"][i]["material"]["color2"]["x"], j["objects"][i]["material"]["color2"]["y"], j["objects"][i]["material"]["color2"]["z"]);
+        Texture *checker = new CheckerTexture(new PureColorTexture(col1), new PureColorTexture(col2));
+        mp = new Diffuse(checker);
       }
       result[i] = new Rectangle(pos1, pos2, mp);
     }
