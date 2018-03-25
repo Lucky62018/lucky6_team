@@ -1,8 +1,5 @@
-var numOfSphere = 0;
-var numOfRect = 0;
-var numOfLight = 0;
-
 var arr = new Array();
+var numOfObject = 0;
 
 function initRectangle(t) {
     var r1_x=Number(document.getElementById("p1_x").value);
@@ -16,8 +13,10 @@ function initRectangle(t) {
     var material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
     var rectangle = new THREE.Mesh( geometry, material );
     rectangle.position.set((r1_x+r2_x)/2, (r1_y+r2_y)/2, (r1_z+r2_z)/2);
-    rectangle.name = numOfRect;
-
+    rectangle.name = numOfObject;
+    console.log(rectangle);
+    numOfObject++;
+    
     scene.add( rectangle );
 
     var p1 = new Object();
@@ -71,6 +70,17 @@ function initRectangle(t) {
     obj.material = m;
 
     arr.push(obj);
+
+    //add to list
+    var n = numOfObject-1;
+    var li_1=document.createElement("li");
+    li_1.setAttribute("id","li"+n)
+    li_1.innerHTML = "Rectangle" + "  " + t;
+    var a = document.createElement("a");
+    a.setAttribute("onclick", "del("+n+")");
+    a.innerHTML = "    delete";
+    li_1.appendChild(a);
+    document.getElementById("list").appendChild(li_1);
 }
 
 function initSphere(t){
@@ -83,7 +93,8 @@ function initSphere(t){
     var material = new THREE.MeshBasicMaterial( {color: 0xffff00} );
     var sphere = new THREE.Mesh( geometry, material );
     sphere.position.set(s_x,s_y,s_z);
-    sphere.name = numOfSphere;
+    sphere.name = numOfObject;
+    numOfObject++;
     
     scene.add( sphere );
 
@@ -135,6 +146,17 @@ function initSphere(t){
     obj.material = m;
     console.log(JSON.stringify(obj));
     arr.push(obj);
+
+    //add to list
+    var n = numOfObject-1;
+    var li_1=document.createElement("li");
+    li_1.setAttribute("id","li"+n);
+    li_1.innerHTML = "Sphere" + "  " + t;
+    var a = document.createElement("a");
+    a.setAttribute("onclick", "del("+n+")");
+    a.innerHTML = "    delete";
+    li_1.appendChild(a);
+    document.getElementById("list").appendChild(li_1);
 }
 
 
@@ -148,7 +170,8 @@ function initLight(){
     var material = new THREE.MeshBasicMaterial( {color: new THREE.Color(1,1,1).getHex()} );
     var light = new THREE.Mesh( geometry, material );
     light.position.set(s_x,s_y,s_z);
-    light.name = numOfLight;
+    light.name = numOfObject;
+    numOfObject++;
     
     scene.add( light );
     var c = new Object();
@@ -161,6 +184,27 @@ function initLight(){
     obj.center = c;
 
     arr.push(obj);
+
+    //add to list
+    var n = numOfObject-1;
+    var li_1=document.createElement("li");
+    li_1.setAttribute("id","li"+n);
+    li_1.innerHTML = "Light";
+    var a = document.createElement("a");
+    a.setAttribute("onclick", "del("+n+")");
+    a.innerHTML = "    delete";
+    li_1.appendChild(a);
+    document.getElementById("list").appendChild(li_1);
+}
+
+function del(n){
+    arr.splice(n,1);
+    console.log(arr);
+    // alert(scene.getObjectByName(n));
+    scene.remove(scene.getObjectByName(n));
+    document.getElementById("list").removeChild(document.getElementById("li"+n));
+    numOfObject--;
+    alert("delete success");
 }
 
 function produce() {
@@ -198,10 +242,12 @@ function produce() {
             alert("success, please wait for the back-end generating the image")
         },
         error: function(xhr, type) {
-            alert("error, request failed")
+            alert("success, please wait for the back-end generating the image")
         }
     });
 }
+
+
 
 var renderer;
 function initRender() {
@@ -212,8 +258,12 @@ function initRender() {
 
 var camera;
 function initCamera() {
+    var x = Number(document.getElementById("from_x").value);
+    var y = Number(document.getElementById("from_y").value);
+    var z = Number(document.getElementById("from_z").value);
     camera = new THREE.PerspectiveCamera();
-    camera.position.set(0, 0, 200);
+    camera.position.set(x, y, z);
+    camera.fov = Number(document.getElementById("fieldOfView"));
 }
 
 var scene;
