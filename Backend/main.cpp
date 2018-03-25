@@ -274,7 +274,9 @@ int main(int argc, char* argv[]) {
   }
   cout << "Main: program exiting." << endl;
 
-  ofstream outfile("out1.ppm");
+  string name = j["name"];
+  string suffix = ".ppm";
+  ofstream outfile(name+suffix);
   outfile << "P3\n" << nx << " " << ny << "\n255\n";
 
   for(int m = ny - 1; m >= 0; m--) {

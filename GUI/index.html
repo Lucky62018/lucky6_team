@@ -37,10 +37,17 @@
 
 </head>
 
-<body style="background:url(images/bg.jpg);" onload="draw()" >
+<body style="background:url(images/bg.jpg);">
     <div class="container wrap1">
-        <h2 class="mg-b20 text-center">Race tracer</h2>
-        <div class="col-sm-8 col-md-5 center-auto pd-sm-50 pd-xs-20 main_content">
+        <h2 class="mg-b20 text-center">Ray tracer</h2>
+        <div class="col-sm-8 center-auto pd-sm-50 pd-xs-20 main_content">
+            <h5><b>FILE_NAME</b></h5>
+            <div class="form-group">
+                <div class="col-xs-4">
+                    <input id="filename" class="form-control" input-sm type="form-control">
+                </div>
+            </div>
+            <br>
             <br>
             <h5><b>IMAGE</b></h5>
 			<div class="form-group">
@@ -68,7 +75,7 @@
                     <input id="from_z" class="form-control " lookfromz="text" placeholder=" Z ">
                 </div>
             </div>
-            <label>look at</label>
+            <!-- <label>look at</label>
             <div class="form-group">
                 <div class="col-xs-4">
                     <input id="at_x" class="form-control " lookatx="text" placeholder=" X ">
@@ -79,13 +86,20 @@
                 <div class="col-xs-4">
                     <input id="at_z" class="form-control " lookatz="text" placeholder=" Z ">
                 </div>
-            </div>
+            </div> -->
             <label>field of view</label>
             <div class="form-group">
-                <div class="col-sm-10">
-                    <input id="fieldOfView" type="text" class="form-control" placeholder="input view size">
+                <div class="col-xs-4">
+                    <input id="fieldOfView" type="text" class="form-control" placeholder="60 is recommended">
+                </div>
+                <div class="col-xs-4">
+                    <input class="form-control " lookatz="text" style="background-color:transparent;border:none">
+                </div>
+                <div class="col-xs-4">
+                    <input class="form-control " lookatz="text" style="background-color:transparent;border:none"><br>
                 </div>
             </div>
+            <button style="produce" class="parameter_btn" onclick="draw()">Bulid Scene</button>
             <br>
             <br>
             <h5><b>OBJECT</b></h5>
@@ -101,16 +115,16 @@
                     <br>
             		<div class="form-group">
                         <div class="col-xs-4">
-                            <input id="center_x" class="form-control " lookatx="text " placeholder="  X  ">
+                            <input id="center_x" class="form-control " lookatx="text " placeholder="X">
                         </div>
                         <div class="col-xs-4">
-                            <input id="center_y" class="form-control " lookaty="text" placeholder=" Y  ">
+                            <input id="center_y" class="form-control " lookaty="text" placeholder="Y > 0">
                         </div> 
                         <div class="col-xs-4">
-                            <input id="center_z" class="form-control " lookatz="text" placeholder="  Z  "><br>
+                            <input id="center_z" class="form-control " lookatz="text" placeholder="Z"><br>
                         </div>
                         <div class="col-xs-4">
-                            <input id="sphere_radius" class="form-control " lookatradius="text" placeholder="  radius  ">
+                            <input id="sphere_radius" class="form-control " lookatradius="text" placeholder="Radius">
                         </div>
                         <div class="col-xs-4">
                             <input class="form-control " lookatradius="text" style="background-color:transparent;border:none">
@@ -128,82 +142,70 @@
                         <div id="sphereMaterialContent" class="tab-content">
             	            <div class="tab-pane fade in active" id="marbel-s">
             		            <div class="form-group">
-                                    <label>marbel</label>
+                                    <label>Marbel has no parms</label>
                                 </div>
                                 <button style="width:100px;produce" class="parameter_btn" onclick="initSphere('marble')" >Add</button>
             	            </div>
             	            <div class="tab-pane fade" id="metal-s">
             		            <div class="form-group">
-                                    <label>please set metal color</label>
-                                    <div class="form-group">
-                                        <div class="col-sm-10">
-                                            <div class="col-xs-4">
-                                                <input id="s_metal_x" class="form-control " lookatx="text " placeholder=" R ">
-                                            </div>
-                                            <div class="col-xs-4">
-                                                <input id="s_metal_y" class="form-control " lookaty="text" placeholder=" G  ">
-                                            </div>
-                                            <div class="col-xs-4">
-                                                <input id="s_metal_z" class="form-control " lookatz="text" placeholder=" B "><br>
-                                            </div>
-                                        </div>
-                                    </div>		                        
+                                    <div class="col-xs-4">
+                                        <input id="s_metal_x" class="form-control " lookatx="text " placeholder="R: 0~1">
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <input id="s_metal_y" class="form-control " lookaty="text" placeholder="G: 0~1">
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <input id="s_metal_z" class="form-control " lookatz="text" placeholder="B: 0~1 "><br>
+                                    </div>  
             	                </div>
                                 <button style="width:100px;produce" class="parameter_btn" onclick="initSphere('metal')" >Add</button>
             	            </div>
             	            <div class="tab-pane fade" id="glass-s">
             		            <div class="form-group">
-                                    <label>glass</label>
+                                    <label>Glass has no parms</label>
                                 </div>	
                                 <button style="width:100px;produce" class="parameter_btn" onclick="initSphere('glass')" >Add</button>
                             </div>
                             <div class=" tab-pane fade" id="purecolor-s">
                                 <div class="form-group">
-                                    <lable>please set the color</lable>
-                                    <div class="col-sm-10">
-                                        <!--input x, y, z-->
-                                        <div class="col-xs-4">
-                                            <input id="s_purecolor_x" class="form-control " lookatx="text " placeholder=" R ">
-                                        </div>
-                                        <div class="col-xs-4">
-                                            <input id="s_purecolor_y" class="form-control " lookaty="text" placeholder=" G ">
-                                        </div>
-                                        <div class="col-xs-4">
-                                            <input id="s_purecolor_z" class="form-control " lookatz="text" placeholder=" B "><br>
-                                        </div>
+                                    <!--input x, y, z-->
+                                    <div class="col-xs-4">
+                                        <input id="s_purecolor_x" class="form-control " lookatx="text " placeholder="R: 0~1">
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <input id="s_purecolor_y" class="form-control " lookaty="text" placeholder="G: 0~1">
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <input id="s_purecolor_z" class="form-control " lookatz="text" placeholder="B: 0~1"><br>
                                     </div>
                                 </div>
                                 <button style="width:100px;produce" class="parameter_btn" onclick="initSphere('pure')" >Add</button>
                             </div>
                             <div class=" tab-pane fade" id="checker-s">
                                 <div class="form-group">
-                                    <div class="col-sm-10">
                                         <!--input x, y, z-->
                                         <div class="col-xs-4">
-                                            <input id="s_checker_x1" class="form-control " lookatx="text " placeholder=" R ">
+                                            <input id="s_checker_x1" class="form-control " lookatx="text " placeholder="R: 0~1">
                                         </div>
                                         <div class="col-xs-4">
-                                            <input id="s_checker_y1" class="form-control " lookaty="text" placeholder=" G ">
+                                            <input id="s_checker_y1" class="form-control " lookaty="text" placeholder="G: 0~1">
                                         </div>
                                         <div class="col-xs-4">
-                                            <input id="s_checker_z1" class="form-control " lookatz="text" placeholder=" B "><br>
+                                            <input id="s_checker_z1" class="form-control " lookatz="text" placeholder="B: 0~1"><br>
                                         </div>
                                         <div class="col-xs-4">
-                                            <input id="s_checker_x2" class="form-control " lookatx="text " placeholder=" R ">
+                                            <input id="s_checker_x2" class="form-control " lookatx="text " placeholder="R: 0~1">
                                         </div>
                                         <div class="col-xs-4">
-                                            <input id="s_checker_y2" class="form-control " lookaty="text" placeholder=" G ">
+                                            <input id="s_checker_y2" class="form-control " lookaty="text" placeholder="G: 0~1">
                                         </div>
                                         <div class="col-xs-4">
-                                            <input id="s_checker_z2" class="form-control " lookatz="text" placeholder=" B "><br>
+                                            <input id="s_checker_z2" class="form-control " lookatz="text" placeholder="B: 0~1"><br>
                                         </div>
-                                    </div>
                                 </div>
                                 <button style="width:100px;produce" class="parameter_btn" onclick="initSphere('checker')" >Add</button>
                             </div>
             	        </div>
-                        <!--add a button-->
-                        <!-- <button style="width:100px;produce" class="parameter_btn" onclick="initSphere()" >Add</button> -->
                     </div>
             	</div>
                 <!--the lable of rectangle -->
@@ -211,22 +213,22 @@
                     <br>
                 	<div class="form-group">
                         <div class="col-xs-4">
-                            <input id="p1_x" class="form-control " lookatx="text" placeholder="  X  ">
+                            <input id="p1_x" class="form-control " lookatx="text" placeholder="X1">
                         </div>
                         <div class="col-xs-4">
-                            <input id="p1_y" class="form-control " lookaty="text" placeholder="  Y  ">
+                            <input id="p1_y" class="form-control " lookaty="text" placeholder="Y1">
                         </div> 
                         <div class="col-xs-4">
-                            <input id="p1_z" class="form-control " lookatz="text" placeholder="  Z  "><br>
+                            <input id="p1_z" class="form-control " lookatz="text" placeholder="Z1"><br>
                         </div>
                         <div class="col-xs-4">
-                            <input id="p2_x" class="form-control " lookatx="text" placeholder="  X  ">
+                            <input id="p2_x" class="form-control " lookatx="text" placeholder="X2 > X1">
                         </div>
                         <div class="col-xs-4">
-                            <input id="p2_y" class="form-control " lookaty="text" placeholder="  Y  ">
+                            <input id="p2_y" class="form-control " lookaty="text" placeholder="Y2 > Y1">
                         </div>
                         <div class="col-xs-4">
-                            <input id="p2_z" class="form-control " lookatz="text" placeholder="  Z  "><br>
+                            <input id="p2_z" class="form-control " lookatz="text" placeholder="Z2 > Z1"><br>
                         </div>
 
                         <!-- this is the same code as the sphere lable-->
@@ -240,79 +242,67 @@
                         <div id="materialContent" class="tab-content">
                             <div class="tab-pane fade in active" id="marbel-r">
                                 <div class="form-group">
-                                    <label>marbel</label>
+                                    <label>Marbel has no parms</label>
                                 </div>
                                 <button style="width:100px;produce" class="parameter_btn" onclick="initRectangle('marble')" >Add</button>
                             </div>
                             <div class="tab-pane fade" id="metal-r">
                                 <div class="form-group">
-                                    <label>please set metal color</label>
-                                    <div class="form-group">
-                                        <div class="col-sm-10">
-                                            <!--input the RGB color value-->
-                                            <div class="col-xs-4">
-                                                <input id="r_metal_x" class="form-control " lookatx="text " placeholder="  R  ">
-                                            </div>
-                                            <div class="col-xs-4">
-                                                <input id="r_metal_y" class="form-control " lookaty="text" placeholder=" G  ">
-                                            </div>
-                                            <div class="col-xs-4">
-                                                <input id="r_metal_z" class="form-control " lookatz="text" placeholder="  B  "><br>
-                                            </div>
-                                        </div>
-                                    </div> 
+                                    <!--input the RGB color value-->
+                                    <div class="col-xs-4">
+                                        <input id="r_metal_x" class="form-control " lookatx="text " placeholder="R: 0~1">
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <input id="r_metal_y" class="form-control " lookaty="text" placeholder="G: 0~1">
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <input id="r_metal_z" class="form-control " lookatz="text" placeholder="B: 0~1"><br>
+                                    </div>
                                 </div>
                                 <button style="width:100px;produce" class="parameter_btn" onclick="initRectangle('mental')" >Add</button>
                             </div>
                             <div class="tab-pane fade" id="glass-r">
                                 <div class="form-group">
-                                    <label>glass</label>
+                                    <label>Glass has no parms</label>
                                 </div>
                                 <button style="width:100px;produce" class="parameter_btn" onclick="initRectangle('glass')" >Add</button>
                             </div>
                             <div class="tab-pane fade" id="purecolor-r">
                                 <!--input RGB color value-->
                                 <div class="form-group">
-                                    <lable>please set the color</lable>
-                                    <div class="form-group">
-                                        <div class="col-sm-10">
-                                            <!--input x, y, z-->
-                                            <div class="col-xs-4">
-                                                <input id="r_purecolor_x" class="form-control " lookatx="text " placeholder="  R  ">
-                                            </div>
-                                            <div class="col-xs-4">
-                                                <input id="r_purecolor_y" class="form-control " lookaty="text" placeholder=" G  ">
-                                            </div>
-                                            <div class="col-xs-4">
-                                                <input id="r_purecolor_z" class="form-control " lookatz="text" placeholder="  B  "><br>
-                                            </div>
-                                        </div>
+                                    <!--input x, y, z-->
+                                    <div class="col-xs-4">
+                                        <input id="r_purecolor_x" class="form-control " lookatx="text " placeholder="R: 0~1">
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <input id="r_purecolor_y" class="form-control " lookaty="text" placeholder="G: 0~1">
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <input id="r_purecolor_z" class="form-control " lookatz="text" placeholder="B: 0~1"><br>
                                     </div>
                                 </div>
                                 <button style="width:100px;produce" class="parameter_btn" onclick="initRectangle('pure')" >Add</button>
                             </div>
                             <div class=" tab-pane fade" id="checker-r">
                                 <div class="form-group">
-                                    <div class="col-sm-10">
-                                        <!--input x, y, z-->
-                                        <div class="col-xs-4">
-                                            <input id="r_checker_x1" class="form-control " lookatx="text " placeholder=" R ">
-                                        </div>
-                                        <div class="col-xs-4">
-                                            <input id="r_checker_y1" class="form-control " lookaty="text" placeholder=" G ">
-                                        </div>
-                                        <div class="col-xs-4">
-                                            <input id="r_checker_z1" class="form-control " lookatz="text" placeholder=" B "><br>
-                                        </div>
-                                        <div class="col-xs-4">
-                                            <input id="r_checker_x2" class="form-control " lookatx="text " placeholder=" R ">
-                                        </div>
-                                        <div class="col-xs-4">
-                                            <input id="r_checker_y2" class="form-control " lookaty="text" placeholder=" G ">
-                                        </div>
-                                        <div class="col-xs-4">
-                                            <input id="r_checker_z2" class="form-control " lookatz="text" placeholder=" B "><br>
-                                        </div>
+                                    <!--input x, y, z-->
+                                    <div class="col-xs-4">
+                                        <input id="r_checker_x1" class="form-control " lookatx="text " placeholder="R: 0~1">
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <input id="r_checker_y1" class="form-control " lookaty="text" placeholder="G: 0~1">
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <input id="r_checker_z1" class="form-control " lookatz="text" placeholder="B: 0~1"><br>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <input id="r_checker_x2" class="form-control " lookatx="text " placeholder="R: 0~1">
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <input id="r_checker_y2" class="form-control " lookaty="text" placeholder="G: 0~1">
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <input id="r_checker_z2" class="form-control " lookatz="text" placeholder="B: 0~1"><br>
                                     </div>
                                 </div>
                                 <button style="width:100px;produce" class="parameter_btn" onclick="initRectangle('checker')" >Add</button>
@@ -325,16 +315,16 @@
                     <br>
                     <div class="form-group">
                         <div class="col-xs-4">
-                            <input id="light_x" class="form-control " lookatx="text" placeholder="  X  ">
+                            <input id="light_x" class="form-control " lookatx="text" placeholder="X">
                         </div>
                         <div class="col-xs-4">
-                            <input id="light_y" class="form-control " lookaty="text" placeholder=" Y  ">
+                            <input id="light_y" class="form-control " lookaty="text" placeholder="Y > 0">
                         </div>
                         <div class="col-xs-4">
-                            <input id="light_z" class="form-control " lookatz="text" placeholder="  Z  "><br>
+                            <input id="light_z" class="form-control " lookatz="text" placeholder="Z"><br>
                         </div>
                         <div class="col-xs-4">
-                            <input id="light_radius" class="form-control " lookatz="text" placeholder="  radius  ">
+                            <input id="light_radius" class="form-control " lookatz="text" placeholder="Radius">
                         </div>
                         <div class="col-xs-4">
                             <input class="form-control " lookatz="text" style="background-color:transparent;border:none">
@@ -351,19 +341,15 @@
             <br>
             <!--add a list to show the exist value-->
             <div style="width:200px">
-                <h2 style="font:400 30px/1.5 Helvetica, Verdana, sans-serif; margin:0; padding:0">Exist List</h2>
-                <ul style="list-style-type: none; margin: 0; padding: 0;">
-                    <li><a href="#">que shen shi da lao</a></li>
-                    <li><a href="#">wo shi da cai ji</a></li>
+                <h2 style="font:400 30px/1.5 Helvetica, Verdana, sans-serif; margin:0; padding:0">Added Objects</h2>
+                <ul id="list" style="list-style-type: none; margin: 0; padding: 0;">
+                    <!-- dynamic added -->
                 </ul>
             </div>
             <br>
             <br>
             <br>
-            <!--the final buton to produce the result-->
-            <!-- <button style="produce" class="parameter_btn" onclick="animate()">preview</button> -->
-            <br>
-            <button style="produce" class="parameter_btn" onclick="produce()">produce</button>
+            <button style="produce" class="parameter_btn" onclick="produce()">Make Image</button>
         </div><!--row end-->
     </div><!--container end-->
     <br>
