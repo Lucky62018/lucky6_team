@@ -218,20 +218,24 @@ function produce() {
     from.y = Number(document.getElementById("from_y").value);
     from.z = Number(document.getElementById("from_z").value);
     var at = new Object();
-    at.x = Number(document.getElementById("at_x").value);
-    at.y = Number(document.getElementById("at_y").value);
-    at.z = Number(document.getElementById("at_z").value);
+    // at.x = Number(document.getElementById("at_x").value);
+    // at.y = Number(document.getElementById("at_y").value);
+    // at.z = Number(document.getElementById("at_z").value);
+    at.x = 0;
+    at.y = 0;
+    at.z = 0;
     var cam = new Object();
     cam.from = from;
     cam.at = at;
     cam.fieldOfView = Number(document.getElementById("fieldOfView").value);
 
     var obj = new Object();
+    obj.name = document.getElementById("filename").value;
     obj.image = img;
     obj.camera = cam;
     obj.objects = arr;
     console.log(JSON.stringify(obj));
-    console.log("produce");
+    alert("success, please wait for the back-end generating the image");
     $.ajax({
         type: 'POST',
         url: "http://localhost:8080",
@@ -239,10 +243,10 @@ function produce() {
         contentType: 'application/json; charset=UTF-8',
         dataType: 'json', 
         success: function(data) {
-            alert("success, please wait for the back-end generating the image")
+            alert("Make image process finished")
         },
         error: function(xhr, type) {
-            alert("success, please wait for the back-end generating the image")
+            alert("Make image process finished")
         }
     });
 }
