@@ -1,0 +1,43 @@
+\contentsline {section}{\numberline {1}Introduction}{4}
+\contentsline {subsection}{\numberline {1.1}Context of work}{4}
+\contentsline {subsection}{\numberline {1.2}Summary of project progress}{5}
+\contentsline {section}{\numberline {2}Review}{5}
+\contentsline {subsection}{\numberline {2.1}History}{5}
+\contentsline {subsection}{\numberline {2.2}Application of Ray tracing}{6}
+\contentsline {subsubsection}{\numberline {2.2.1}Ray Tracing in Architecture}{6}
+\contentsline {subsubsection}{\numberline {2.2.2}Ray tracing in engineering}{7}
+\contentsline {subsubsection}{\numberline {2.2.3}Ray tracing in animation}{7}
+\contentsline {subsection}{\numberline {2.3}Scanline rendering}{7}
+\contentsline {subsection}{\numberline {2.4}Advantages and disadvantages}{8}
+\contentsline {subsection}{\numberline {2.5}Camera imaging principle}{8}
+\contentsline {subsection}{\numberline {2.6}Important References}{9}
+\contentsline {section}{\numberline {3}Requirement analysis}{10}
+\contentsline {subsection}{\numberline {3.1}Functional requirement}{10}
+\contentsline {subsubsection}{\numberline {3.1.1}Position module}{11}
+\contentsline {subsubsection}{\numberline {3.1.2}Object module}{11}
+\contentsline {subsubsection}{\numberline {3.1.3}Preview module}{11}
+\contentsline {subsubsection}{\numberline {3.1.4}Produce module}{11}
+\contentsline {subsection}{\numberline {3.2}Performance requirements}{12}
+\contentsline {section}{\numberline {4}Implementation}{13}
+\contentsline {subsection}{\numberline {4.1}Initial design}{13}
+\contentsline {subsection}{\numberline {4.2}Main page design}{14}
+\contentsline {subsection}{\numberline {4.3}Front-page function module}{14}
+\contentsline {subsubsection}{\numberline {4.3.1}Position module}{14}
+\contentsline {subsubsection}{\numberline {4.3.2}Object module}{15}
+\contentsline {subsubsection}{\numberline {4.3.3}Preview module}{15}
+\contentsline {subsubsection}{\numberline {4.3.4}Produce module}{16}
+\contentsline {subsection}{\numberline {4.4}Back-end structure design}{16}
+\contentsline {subsection}{\numberline {4.5}Objects implantation}{20}
+\contentsline {subsection}{\numberline {4.6}Materials and texture}{21}
+\contentsline {subsection}{\numberline {4.7}Texture}{22}
+\contentsline {subsection}{\numberline {4.8}Source of light}{22}
+\contentsline {subsection}{\numberline {4.9}Antialiasing}{23}
+\contentsline {section}{\numberline {5}Software testing}{23}
+\contentsline {subsection}{\numberline {5.1}White box testing}{24}
+\contentsline {subsubsection}{\numberline {5.1.1}Unit test}{25}
+\contentsline {subsubsection}{\numberline {5.1.2}Death test}{27}
+\contentsline {subsection}{\numberline {5.2}Black-box testing}{27}
+\contentsline {subsubsection}{\numberline {5.2.1}Request}{27}
+\contentsline {subsubsection}{\numberline {5.2.2}Test method}{28}
+\contentsline {subsubsection}{\numberline {5.2.3}Example input and result}{29}
+\contentsline {section}{\numberline {6}Responsibility distribution}{30}
